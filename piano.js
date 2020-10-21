@@ -1,10 +1,13 @@
 //generate the keyboard after the window loads
+
 window.onload = function(){
+  // synth = new Tone.Synth().toDestination();
+  // synth.oscillator.type = "sine";
   generateKeys(20);
 }
 
 
-
+var newKey;
 function generateKeys(numberOfKeys){
   //the order of piano keys is WBWBW-WBWBWBW
   //61 keys include both the black and the white keys
@@ -13,63 +16,102 @@ function generateKeys(numberOfKeys){
 
   var keyboard = document.getElementById("keyboard");
   var numberOfWhiteKeys = 0;
-  var newKey = [];
+
+  // let i = 1;
+  // let body = document.getElementsByTagName("body")[0];
+  //
+  // for (i; i <= 20; i++) {
+  //   let button = document.createElement("button");
+  //   button.innerHTML = 'Button ' + i;
+  //   keyboard.appendChild(button);
+  //   button.addEventListener("click", function() {
+  //   test(this.innerHTML);
+  //   });
+  // }
+
   for (var i = 0; i < numberOfKeys; i++){
     if (i % 12 != 1 && i % 12 != 3 && i % 12 != 6 && i % 12 != 8 && i % 12 != 10){
-      newKey[i] = document.createElement("button" + String(i));
-      newKey[i].value = i;
-      newKey[i].classList.add("whiteKey");
-      newKey[i].style.position = "absolute";
-      newKey[i].style.left = 28 * (numberOfWhiteKeys + 1) + "px";
-      //newKey[i].onclick = playNote();
-      keyboard.appendChild(newKey[i]);
+      newKey = document.createElement("button");
+      newKey.value = i;
+      newKey.innerHTML = i;
+      newKey.classList.add("whiteKey");
+      newKey.style.position = "absolute";
+      newKey.style.left = 28 * (numberOfWhiteKeys + 1) + "px";
+
+      keyboard.appendChild(newKey);
+      newKey.addEventListener("click", function() {
+        playNote(this.value);
+      });
       numberOfWhiteKeys++;
     }
     else {
-      newKey[i] = document.createElement("button" + String(i));
-      newKey[i].value = i;
-      newKey[i].classList.add("blackKey");
-      newKey[i].style.position = "absolute";
-      newKey[i].style.left = 28 * (numberOfWhiteKeys + 0.7) + "px";
-      newKey[i].style['z-index'] = 999;
-      //newKey[i].onclick = playNote();
-      keyboard.appendChild(newKey[i]);
+      newKey = document.createElement("button");
+      newKey.value = i;
+      newKey.innerHTML = i;
+      newKey.classList.add("blackKey");
+      newKey.style.position = "absolute";
+      newKey.style.left = 28 * (numberOfWhiteKeys + 0.7) + "px";
+      newKey.style['z-index'] = 999;
+
+      keyboard.appendChild(newKey);
+      newKey.addEventListener("click", function() {
+        playNote(this.value);
+      });
     }
     // if (i % 12 != 1 && i % 12 != 3 && i % 12 != 6 && i % 12 != 8 && i % 12 != 10){
-    //   newKey[i] = document.createElement("button" + String(i));
+    //   newKey[i] = document.createElement("button");
     //   newKey[i].value = i;
+    //   newKey[i].innerHTML = i;
     //   newKey[i].classList.add("whiteKey");
     //   newKey[i].style.position = "absolute";
     //   newKey[i].style.left = 28 * (numberOfWhiteKeys + 1) + "px";
-    //   //newKey[i].onclick = playNote();
+    //
     //   keyboard.appendChild(newKey[i]);
+    //   newKey[i].addEventListener("click", function() {
+    //     playNote(this.value);
+    //   });
     //   numberOfWhiteKeys++;
     // }
     // else {
-    //   newKey[i] = document.createElement("button" + String(i));
+    //   newKey[i] = document.createElement("button");
     //   newKey[i].value = i;
+    //   newKey[i].innerHTML = i;
     //   newKey[i].classList.add("blackKey");
     //   newKey[i].style.position = "absolute";
     //   newKey[i].style.left = 28 * (numberOfWhiteKeys + 0.7) + "px";
     //   newKey[i].style['z-index'] = 999;
-    //   //newKey[i].onclick = playNote();
+    //
     //   keyboard.appendChild(newKey[i]);
+    //   newKey[i].addEventListener("click", function() {
+    //     playNote(this.value);
+    //   });
     // }
   }
-  newKey.onclick = playNote(event);
+  //newKey.onclick = playNote(event);
 }
 
-function playNote (event){
+
+
+// function test(val){
+//   console.log(val);
+//   keyboard.addEventListener("mousedown", e => {
+//     synth.triggerAttackRelease(100+(val*5));
+//   });
+//
+//   keyboard.addEventListener("mouseup", e => {
+//     synth.triggerRelease();
+//   });
+// }
+
+function playNote (key){
   //initializes the sound synthesizer
   const synth = new Tone.Synth().toDestination();
   synth.oscillator.type = "sine";
 
   keyboard.addEventListener("mousedown", e => {
-    console.log();
+  console.log(key);
 
-    //console.log(document.getElementById("button"));
-  // console.log(keyboard.newKey[].getAttribute("value"));
-    synth.triggerAttack(80);
+    synth.triggerAttack(100+(key*5));
   });
   keyboard.addEventListener("mouseup", e => {
     synth.triggerRelease();
@@ -77,12 +119,12 @@ function playNote (event){
 
 
 
-// keyboard.addEventListener("mousedown", e => {
-//   synth.triggerAttack(e.target.dataset.note);
-// });
-// keyboard.addEventListener("mouseup", e => {
-//   synth.triggerRelease();
-// });
+  // keyboard.addEventListener("mousedown", e => {
+  //   synth.triggerAttack(e.target.dataset.note);
+  // });
+  // keyboard.addEventListener("mouseup", e => {
+  //   synth.triggerRelease();
+  // });
 
 
   //
@@ -98,7 +140,7 @@ function playNote (event){
 
 
 
-   //event.stopPropagation();
+  //event.stopPropagation();
   //const synth = new Tone.Synth().toDestination();
 
   //convert the key value from the 0-60 range to the note frequency in Hz
@@ -106,11 +148,11 @@ function playNote (event){
   //starts with the 16-th key of the standard piano
   //console.log(newKey.value);
   //synth.triggerAttackRelease(String(440*(2*((value-49)/12))));
-   //synth.triggerAttackRelease(String(440-value));
+  //synth.triggerAttackRelease(String(440-value));
 
   //this plays a standard-concert-pitch 440Hz tone
   //replace the 440 Hz with the frequency you computed above
-}
+//}
 
 // //generate the keyboard after the window loads
 //
@@ -139,7 +181,7 @@ function playNote (event){
 //       document.getElementById("piano").appendChild(div);
 //     }
 //   }
-// }
+ }
 //
 //
 // //generateKeys(49);
