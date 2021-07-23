@@ -4,6 +4,9 @@
   color: black;
   height: 100px;
   width: 28px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px #666;
+  cursor: pointer;
 }
 
 .blackKey {
@@ -12,55 +15,15 @@
   color: white;
   height: 60px;
   width: 16px;
-}
-
-/* body {
-  font-family: 'Ariel', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-ul {
-  list-style: none;
-  display: flex;
-}
-
-.key {
-  position: relative;
-  width: 50px;
-  height: 160px;
-  border: 1px solid black;
-  border-right: none;
-  background: #fffff0;
   border-radius: 5px;
   box-shadow: 0px 3px 5px #666;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 10px;
-  font-weight: bold;
 }
 
-.key:last-child {
-  border-right: 1px solid black;
+.whiteKey:active {
+  background-color: GoldenRod;
 }
 
-.black-key {
-  position: absolute;
-  top: -1px;
-  left: 37.5px;
-  width: 35px;
-  height: 90px;
-  background: black;
-  border-radius: 5px;
-  box-shadow: 0px 3px 5px #666;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 10px;
-  color: white;
-} */
+.blackKey:active {
+  background-color: DimGrey;
+}
